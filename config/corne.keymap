@@ -5,25 +5,27 @@
  */
 
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
 
-// Home Row Mods
+// Definições dos Home Row Mods
+
 #define HM_A &thm LGUI A
 #define HM_S &thm LALT S
 #define HM_D &thm LSHFT D
 #define HM_F &thm LCTRL F
-
 #define HM_J &thm RCTRL J
 #define HM_K &thm RSHFT K
 #define HM_L &thm LALT L
 #define HM_SCLN &thm RGUI SEMI
 
-// Layer Taps 
-#define LT_SPC &lt Nav SPACE
-#define LT_ESC &lt Numeric ESC
-#define LT_RET &lt Media RET
-#define LT_BSPC &lt Symbols BSPC
+// Layer Tap para a tecla ESC que ativa a camada LOWER quando mantida
+
+#define LT_ESC &lt LOWER ESC
+
+// Layer Tap para a tecla BSPC que ativa a camada RAISE quando mantida
+
+#define LT_BSPC &lt RAISE BSPC
 
 / {
     macros {
@@ -42,10 +44,10 @@
 
         default_layer {
             bindings = <
-                &kp TAB   &kp Q    &kp W    &kp E    &kp R    &kp T       &kp Y     &kp U     &kp I     &kp O      &kp P       &kp MINUS
-                &kp LSHFT &kp A     &kp S     &kp D     &kp F     &kp J      &kp K      &kp L       &kp SCLN     &kp SQT
-                &kp LCTRL &kp Z    &kp X    &kp C    &kp V    &kp B       &kp N     &kp M     &kp COMMA &kp DOT    &kp FSLH    &kp LGUI
-                                      &kp LALT LT_SPC LT_ESC    LT_RET  LT_BSPC &kp DEL
+&kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
+&kp LSHFT  &kp A  &kp S  &kp D     &kp F        &kp G        &kp H      &kp J       &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp LGUI
+                         &kp LALT  &lt 1 SPACE  &lt 2 ESC    &lt 3 RET  &lt 4 BSPC  &kp DEL
             >;
         };
 
