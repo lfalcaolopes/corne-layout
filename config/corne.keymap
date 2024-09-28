@@ -112,7 +112,7 @@
             flavor = "balanced";
             tapping-term-ms = <200>; // Adjust as needed
             quick-tap-ms = <0>;
-            bindings = <&kp> <&caps_word>;
+            bindings = <&kp>, <&caps_word>;
         };
     };
 };
