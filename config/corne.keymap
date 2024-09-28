@@ -113,7 +113,7 @@
             bindings = <&kp>, <&kp>;
         };
     };
-}
+};
 
 / {
     macros {
