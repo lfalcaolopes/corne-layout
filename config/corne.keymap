@@ -121,9 +121,8 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>; // Should match the tapping term of Tap Dance
             quick-tap-ms = <0>;
-            global-quick-tap;        // Optional: remove if not desired
             hold-trigger-key-positions = <>;
-            bindings = <&kp LSHFT &td_caps_word_caps_lock>;
+            bindings = <&kp LSHFT> <&td_caps_word_caps_lock>;
         };
     };
 };
