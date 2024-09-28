@@ -105,20 +105,20 @@
             // hold-trigger-on-release;
         };
 
-        td0: TD_CAPSWORD_CAPSLOCK {
+        td_cw_cp: TD_CAPSWORD_CAPSLOCK {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&caps_word>, <&kp CAPSLOCK>;
         };
 
-        lh_pht: left_positional_hold_tap {
+        ht_kp_td: ht_shft_cw_cp {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <100>;                        // <---[[produces tap if held longer than tapping-term-ms]]
             quick-tap-ms = <200>;
-            bindings = <&kp>, <&kp>;
+            bindings = <&kp>, <&td>;
             hold-trigger-key-positions = <>;    // <---[[right-hand keys]]
         };
     };
@@ -141,7 +141,7 @@
         default_layer {
             bindings = <
 &kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
-&lh_pht LSHFT &td0  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
+&ht_kp_td LSHFT td_cw_cp  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
 &kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp LGUI
                          &kp LALT  &lt 1 SPACE  &lt 2 ESC    &lt 3 RET  &lt 4 BSPC  &kp DEL
             >;
