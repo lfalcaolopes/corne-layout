@@ -12,47 +12,61 @@
 #define KEYS_R RT0 RT1 RT2 RT3 RT4 RT5 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RB5// right-hand keys
 #define KEYS_T LH2 LH1 LH0 RH0 RH1 RH2                                      // thumb keys
 
-#define HM_TAPPING_TERM 300
-#define HM_TAPPING_TERM_FAST 200
-#define HM_PRIOR_IDLE 150
+#define TAPPING_TERM 300
+#define TAPPING_TERM_FAST 200
 #define QUICK_TAP_TERM 175
+#define HM_PRIOR_IDLE 150
 
 &lt {
-    // Increase layer tap time
-    tapping-term-ms = <300>;
+    tapping-term-ms = <TAPPING_TERM>;
 
-    // Quickly tap-tap-holding the lt button will repeat the tap behavior
-    // For example enter-enter-hold, will output multiple enter while you
-    // keep holding the key.
-    // But holding enter without double tapping, will activate the layer.
-     quick-tap-ms = <QUICK_TAP_TERM>;
+    quick-tap-ms = <QUICK_TAP_TERM>;
 
-     flavor = "balanced";
+    flavor = "balanced";
+};
+
+&caps_word {
+    continue-list = <
+      UNDERSCORE MINUS
+      LCTRL LALT LGUI LSHFT
+      RCTRL RALT RGUI RSHFT
+      BACKSPACE
+    >;
+};
+
+/ {
+    macros {
+        vim_save: vim_save {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp COLON &kp W &kp RET>;
+        };
+    };
+};
+ 
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        combo_numeric_layer {
+            timeout-ms = <50>;
+            key-positions = <RH1 RH2>;
+            bindings = <&tog 2>;
+        };
+    };
 };
 
 / {
 
     behaviors {
-
-        // Positional Homerow mods
-        // Homerow mods that prevent accidental activations when rolling keys,
-        // such as when typing `st` or `ne` on colemak-dh layouts or `as` on
-        // qwerty.
-        //
-        // Works by only allowing a mod to activate within tapping-term if
-        // it's on the opposite side of the keyboard or on the same side thumb
-        // keys.
-
-        // Further optimization using urob's timerless homerow mods method:
-        // https://github.com/urob/zmk-config#timeless-homerow-mods
         hm_l: homerow_mods_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             bindings = <&kp>,  <&kp>;
 
             flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM>;
-            quick-tap-ms = <QUICK_TAP_TERM>;                // repeat on tap-into-hold
+            tapping-term-ms = <TAPPING_TERM>;
+            quick-tap-ms = <QUICK_TAP_TERM>;
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
             hold-trigger-key-positions = <KEYS_R KEYS_T>;
@@ -65,7 +79,7 @@
             bindings = <&kp>, <&kp>;
 
             flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM>;
+            tapping-term-ms = <TAPPING_TERM>;
             quick-tap-ms = <QUICK_TAP_TERM>;
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
@@ -73,17 +87,14 @@
             hold-trigger-on-release;
         };
 
-
-        // Positional Homerow mods for shift
-        // Use faster tapping term and disable some features that may
-        // cause false negatives.
+        // Faster typing term and disable some features that may cause false negatives
         hm_shift_l: hm_shift_l {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             bindings = <&kp>, <&kp>;
 
             flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM_FAST>;
+            tapping-term-ms = <TAPPING_TERM_FAST>;
             quick-tap-ms = <QUICK_TAP_TERM>;
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
@@ -97,32 +108,20 @@
             bindings = <&kp>, <&kp>;
 
             flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM_FAST>;
+            tapping-term-ms = <TAPPING_TERM_FAST>;
             quick-tap-ms = <QUICK_TAP_TERM>;
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
             hold-trigger-key-positions = <KEYS_L KEYS_T>;
-            // hold-trigger-on-release;
         };
 
-        // Hold-Tap behavior for Shift and Caps Word
-        ht_scw: ht_shift_caps_word {
+        ht_caps_word: hold_tap_shift_caps_word {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <200>; // Adjust as needed
+            tapping-term-ms = <QUICK_TAP_TERM>;
             quick-tap-ms = <0>;
             bindings = <&kp>, <&caps_word>;
-        };
-    };
-};
-
-/ {
-    macros {
-        vim_save: vim_save {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp COLON &kp W &kp RET>;
         };
     };
 };
@@ -134,7 +133,7 @@
         default_layer {
             bindings = <
 &kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
-&ht_scw LSHFT 0  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
+&ht_caps_word LSHFT 0  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
 &kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp LGUI
                          &kp LALT  &lt 1 SPACE  &lt 2 ESC    &lt 3 RET  &lt 4 BSPC  &kp DEL
             >;
@@ -153,7 +152,7 @@
             bindings = <
 &none  &none     &none     &none      &none      &none    &none      &kp N7  &kp N8     &kp N9  &none     &none
 &none  &kp LGUI  &kp LALT  &kp LSHFT  &kp LCTRL  &none    &kp EQUAL  &kp N4  &kp N5     &kp N6  &kp PLUS  &kp MINUS
-&none  &none     &none     &none      &none      &none    &none      &kp N1  &kp N2     &kp N3  &none     &none
+&none  &none     &none     &none      &none      &none    &none      &kp N1  &kp N2     &kp N3  &none     &tog 2
                            &none      &none      &none    &kp DOT    &kp N0  &kp COMMA
             >;
         };
