@@ -112,7 +112,7 @@
             tapping-term-ms = <300>; // Adjust as needed
             bindings = <
                 &caps_word    // Single tap action: Caps Word
-                &kp CAPS_LOCK      // Double-tap action: Caps Lock
+                &kp CAPS      // Double-tap action: Caps Lock
             >;
         };
         
@@ -145,7 +145,7 @@
         default_layer {
             bindings = <
 &kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
-&holt   &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
+&ht_shift_td  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
 &kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp LGUI
                          &kp LALT  &lt 1 SPACE  &lt 2 ESC    &lt 3 RET  &lt 4 BSPC  &kp DEL
             >;
