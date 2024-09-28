@@ -15,6 +15,7 @@
 #define HM_TAPPING_TERM 300
 #define HM_TAPPING_TERM_FAST 200
 #define HM_PRIOR_IDLE 150
+#define QUICK_TAP_TERM 175
 
 &lt {
     // Increase layer tap time
@@ -24,7 +25,7 @@
     // For example enter-enter-hold, will output multiple enter while you
     // keep holding the key.
     // But holding enter without double tapping, will activate the layer.
-     quick-tap-ms = <200>;
+     quick-tap-ms = <QUICK_TAP_TERM>;
 
      flavor = "balanced";
 };
@@ -51,7 +52,7 @@
 
             flavor = "balanced";
             tapping-term-ms = <HM_TAPPING_TERM>;
-            quick-tap-ms = <175>;                // repeat on tap-into-hold
+            quick-tap-ms = <QUICK_TAP_TERM>;                // repeat on tap-into-hold
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
             hold-trigger-key-positions = <KEYS_R KEYS_T>;
@@ -65,7 +66,7 @@
 
             flavor = "balanced";
             tapping-term-ms = <HM_TAPPING_TERM>;
-            quick-tap-ms = <175>;
+            quick-tap-ms = <QUICK_TAP_TERM>;
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
             hold-trigger-key-positions = <KEYS_L KEYS_T>;
@@ -83,7 +84,7 @@
 
             flavor = "balanced";
             tapping-term-ms = <HM_TAPPING_TERM_FAST>;
-            quick-tap-ms = <175>;
+            quick-tap-ms = <QUICK_TAP_TERM>;
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
             hold-trigger-key-positions = <KEYS_R KEYS_T>;
@@ -97,7 +98,7 @@
 
             flavor = "balanced";
             tapping-term-ms = <HM_TAPPING_TERM_FAST>;
-            quick-tap-ms = <175>;
+            quick-tap-ms = <QUICK_TAP_TERM>;
             require-prior-idle-ms = <HM_PRIOR_IDLE>;
 
             hold-trigger-key-positions = <KEYS_L KEYS_T>;
@@ -108,10 +109,10 @@
         td_caps_word_caps_lock: behavior_tap_dance {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
-            tapping-term-ms = <200>; // Adjust as needed
+            tapping-term-ms = <300>; // Adjust as needed
             bindings = <
                 &caps_word    // Single tap action: Caps Word
-                &kp CAPS      // Double-tap action: Caps Lock
+                &kp CAPS_LOCK      // Double-tap action: Caps Lock
             >;
         };
         
@@ -119,10 +120,10 @@
         ht_shift_td: behavior_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            tapping-term-ms = <200>; // Should match the tapping term of Tap Dance
-            quick-tap-ms = <0>;
+            tapping-term-ms = <300>; // Should match the tapping term of Tap Dance
+            quick-tap-ms = <QUICK_TAP_TERM>;
             hold-trigger-key-positions = <>;
-            bindings = <&kp LSHFT>, <&td_caps_word_caps_lock>;
+            bindings = <&kp LEFT_SHIFT &td_caps_word_caps_lock>;
         };
     };
 };
@@ -144,7 +145,7 @@
         default_layer {
             bindings = <
 &kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
-&ht_shift_td  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
+&holt   &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
 &kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp LGUI
                          &kp LALT  &lt 1 SPACE  &lt 2 ESC    &lt 3 RET  &lt 4 BSPC  &kp DEL
             >;
