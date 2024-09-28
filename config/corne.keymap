@@ -104,29 +104,16 @@
             hold-trigger-key-positions = <KEYS_L KEYS_T>;
             // hold-trigger-on-release;
         };
-        
-        // Tap Dance behavior for Caps Word and Caps Lock
-        td_caps_word_caps_lock: behavior_tap_dance {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <300>; // Adjust as needed
-            bindings = <
-                &caps_word    // Single tap action: Caps Word
-                &kp CAPS      // Double-tap action: Caps Lock
-            >;
-        };
-        
-        // Hold-Tap behavior combining Shift and Tap Dance
-        ht_shift_td: behavior_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <300>; // Should match the tapping term of Tap Dance
-            quick-tap-ms = <QUICK_TAP_TERM>;
-            hold-trigger-key-positions = <>;
-            bindings = <&kp LEFT_SHIFT &td_caps_word_caps_lock>;
-        };
     };
 };
+
+/ {
+    td {
+        capsword_capslock {
+            bindings = <&kp>, <&kp>;
+        };
+    };
+}
 
 / {
     macros {
@@ -145,7 +132,7 @@
         default_layer {
             bindings = <
 &kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
-&ht_shift_td  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
+&ht LSHFT &td capsword_capslock  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
 &kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp LGUI
                          &kp LALT  &lt 1 SPACE  &lt 2 ESC    &lt 3 RET  &lt 4 BSPC  &kp DEL
             >;
