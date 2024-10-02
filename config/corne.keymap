@@ -22,7 +22,7 @@
 
     quick-tap-ms = <QUICK_TAP_TERM>;
 
-    flavor = "hold-prefered";
+    flavor = "hold-preferred";
 };
 
 &caps_word {
