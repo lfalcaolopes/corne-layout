@@ -17,14 +17,6 @@
 #define QUICK_TAP_TERM 175
 #define HM_PRIOR_IDLE 150
 
-&lt {
-    tapping-term-ms = <TAPPING_TERM>;
-
-    quick-tap-ms = <QUICK_TAP_TERM>;
-
-    flavor = "hold-preferred";
-};
-
 &caps_word {
     continue-list = <
       UNDERSCORE MINUS
@@ -59,6 +51,14 @@
 / {
 
     behaviors {
+        u_lt: universal_layer_tap {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        tapping-term-ms = <TAPPING_TERM_FAST>;
+        flavor = "tap-preferred";
+        bindings = <&mo>, <&kp>;
+        };
+        
         hm_l: homerow_mods_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -130,15 +130,6 @@
             quick-tap-ms = <QUICK_TAP_TERM>;
             bindings = <&kp>, <&td_cw_cp>;
         };
-        
-        ht_caps_word: hold_tap_shift_caps_word {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <QUICK_TAP_TERM>;
-            quick-tap-ms = <0>;
-            bindings = <&kp>, <&caps_word>;
-        };
     };
 };
 
@@ -151,7 +142,7 @@
 &kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
 &ht_kp_td LSHFT 0  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
 &kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp LGUI
-                         &kp LALT  &lt 1 SPACE  &lt 2 ESC    &lt 3 RET  &lt 4 BSPC  &kp DEL
+                         &kp LALT  &u_lt 1 SPACE  &u_lt 2 ESC    &u_lt 3 RET  &u_lt 4 BSPC  &kp DEL
             >;
         };
 
