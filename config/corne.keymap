@@ -44,6 +44,12 @@
             key-positions = <RH1 RH2>;
             bindings = <&tog 2>;
         };
+        
+        combo_cedilla {
+            timeout-ms = <100>;
+            key-positions = <RM5 LB2>;
+            bindings = <&kp CEDILLA>;
+        };
     };
 };
 
