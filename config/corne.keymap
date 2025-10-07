@@ -48,7 +48,7 @@
         combo_cedilla {
             timeout-ms = <100>;
             key-positions = <RM5 LB2>;
-            bindings = <&kp RALT &kp C>;
+            bindings = <&kp RA(C)>;
         };
     };
 };
