@@ -57,6 +57,19 @@
 
     behaviors {
         /*******************************
+         * STICKY KEY
+         *******************************/
+        skq: sticky_key_quick_release {
+            compatible = "zmk,behavior-sticky-key";
+            #binding-cells = <1>;
+            bindings = <&kp>;
+            release-after-ms = <1000>;
+            quick-release;
+            ignore-modifiers;
+        };
+
+
+        /*******************************
          * UNIVERSAL LAYER TAP
          *******************************/
         u_lt: universal_layer_tap {
@@ -66,6 +79,15 @@
             quick-tap-ms = <QUICK_TAP_TERM>;
             flavor = "tap-preferred";
             bindings = <&mo>, <&kp>;
+        };
+
+        u_lt_sk: universal_layer_tap_with_sk {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <TAPPING_TERM_FAST>;
+            quick-tap-ms = <QUICK_TAP_TERM>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&skq>;
         };
 
 
@@ -153,15 +175,6 @@
             quick-tap-ms = <QUICK_TAP_TERM>;
             bindings = <&kp>, <&td_cw_cp>;
         };
-
-        skq: sticky_key_quick_release {
-            compatible = "zmk,behavior-sticky-key";
-            #binding-cells = <1>;
-            bindings = <&kp>;
-            release-after-ms = <1000>;
-            quick-release;
-            ignore-modifiers;
-        };
     };
 };
 
@@ -174,7 +187,7 @@
 &kp TAB    &kp Q  &kp W  &kp E     &kp R        &kp T        &kp Y      &kp U       &kp I      &kp O    &kp P     &kp MINUS
 &ht_kp_td LSHFT 0  &hm_l LGUI A  &hm_l LALT S  &hm_shift_l LSHFT D     &hm_l LCTRL F        &kp G        &kp H      &hm_r LCTRL J       &hm_shift_r LSHFT K      &hm_r LALT L    &hm_r LGUI SEMI  &kp SQT
 &kp LCTRL  &kp Z  &kp X  &kp C     &kp V        &kp B        &kp N      &kp M       &kp COMMA  &kp DOT  &kp FSLH  &kp DEL
-                         &kp LALT  &u_lt 1 SPACE  &u_lt 2 ESC    &u_lt 3 RET  &u_lt 4 BSPC  &skq LSHFT
+                         &kp LALT  &u_lt 1 SPACE  &u_lt 2 ESC    &u_lt 3 RET  &u_lt_sk 4 LSHFT  &kp BSPC
             >;
         };
 
